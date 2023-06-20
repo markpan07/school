@@ -21,16 +21,22 @@ public class FacultyService {
     }
 
     public Faculty getFaculty(long id) {
-        return faculties.get(id);
+        if(faculties.containsKey(id)) {
+            return faculties.get(id);
+        }
+        return null;
     }
 
-    public Faculty updateFaculty(long id, Faculty faculty) {
-        faculties.put(id, faculty);
+    public Faculty updateFaculty(Faculty faculty) {
+        faculties.put(faculty.getId(), faculty);
         return faculty;
     }
 
     public Faculty deleteFaculty(long id) {
-        return faculties.remove(id);
+        if(faculties.containsKey(id)) {
+            return faculties.remove(id);
+        }
+        return null;
     }
 
 }
