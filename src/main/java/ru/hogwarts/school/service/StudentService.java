@@ -14,24 +14,31 @@ public class StudentService {
 
     HashMap<Long, Student> students = new HashMap<>();
 
-    public Student createStudent(String name, int age) {
-       Student student = new Student(counterId, name, age);
-       students.put(counterId, student);
-       counterId++;
+    public Student createStudent(Student student) {
+        student.setId(counterId);
+        students.put(counterId, student);
+        counterId++;
         return student;
     }
 
-    public Student getStudent(int id) {
-        return students.get(id);
+    public Student getStudent(long id) {
+        if (students.containsKey(id)) {
+            return students.get(id);
+
+        }
+        return null;
     }
 
-    public Student updateStudent(long id, Student student) {
-        students.put(id, student);
+    public Student updateStudent(Student student) {
+        students.put(student.getId(), student);
         return student;
     }
 
     public Student deleteStudent(long id) {
-        return students.remove(id);
+        if (students.containsKey(id)) {
+            return students.remove(id);
+        }
+        return null;
     }
 
 }

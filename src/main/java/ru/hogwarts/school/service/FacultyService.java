@@ -9,12 +9,13 @@ import java.util.HashMap;
 @Service
 public class FacultyService {
 
-    private static int counterId = 1;
+    private static long counterId = 1;
 
     HashMap<Long, Faculty> faculties = new HashMap<>();
 
-    public Faculty createFaculty(String name, String color) {
-        Faculty faculty = new Faculty( counterId, name, color);
+    public Faculty createFaculty(Faculty faculty) {
+        faculty.setId(counterId);
+        faculties.put(counterId, faculty);
         counterId++;
         return faculty;
     }
