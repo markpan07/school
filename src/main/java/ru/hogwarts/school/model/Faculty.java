@@ -4,12 +4,12 @@ public class Faculty {
 
     private long id;
     private String name;
-    private int age;
+    private String color;
 
-    public Faculty(long id, String name, int age) {
+    public Faculty(long id, String name, String color) {
         this.id = id;
         this.name = name;
-        this.age = age;
+        this.color = color;
     }
 
     public void setId(long id) {
@@ -20,8 +20,12 @@ public class Faculty {
         this.name = name;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public long getId() {
@@ -32,7 +36,5 @@ public class Faculty {
         return name;
     }
 
-    public int getAge() {
-        return age;
-    }
+
 }
