@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.hogwarts.school.model.Student;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -41,4 +43,9 @@ public class StudentService {
         return null;
     }
 
+    public List<Student> filterByAge (int age) {
+        return students.values().stream()
+                .filter(f -> f.getAge() == age)
+                .collect(Collectors.toList());
+    }
 }
