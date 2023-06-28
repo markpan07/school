@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repositories.StudentRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,40 +13,29 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
-    private static long counterId = 1;
+    private StudentRepository studentRepository;
 
-    HashMap<Long, Student> students = new HashMap<>();
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     public Student createStudent(Student student) {
-        student.setId(counterId);
-        students.put(counterId, student);
-        counterId++;
-        return student;
+        return studentRepository.save(student);
     }
 
     public Student getStudent(long id) {
-        if (students.containsKey(id)) {
-            return students.get(id);
-
-        }
-        return null;
+        return studentRepository.findById(id).get();
     }
 
     public Student updateStudent(Student student) {
-        students.put(student.getId(), student);
-        return student;
+        return studentRepository.save(student);
     }
 
-    public Student deleteStudent(long id) {
-        if (students.containsKey(id)) {
-            return students.remove(id);
-        }
-        return null;
+    public void deleteStudent(long id) {
+        studentRepository.deleteById(id);
     }
 
     public List<Student> filterByAge (int age) {
-        return students.values().stream()
-                .filter(f -> f.getAge() == age)
-                .collect(Collectors.toList());
+        return studentRepository.findAllByAge(age);
     }
 }
